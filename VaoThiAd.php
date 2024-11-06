@@ -8,11 +8,6 @@
 <div class="pagetitle">
 		<h2>Danh sách Bài thi</h2>
 </div>
-<p>
-  <a href="ThemBT.php" class="btn btn-success">
-    <i class="bi bi-file-earmark-text me-1"></i>Thêm bài thi
-  </a>
-</p>
 	<section class="section dashboard">
 		<div class="row">
 			<div class="col-12">
@@ -28,7 +23,7 @@
 									<th class="col-1 text-center">Số câu</th>
 									<th class="col-2 text-center">Bắt đầu</th>
 									<th class="col-2 text-center">Kết thúc</th>
-                                    <th class="col-2 text-center">Chức năng</th>
+                                    <th class="col-2 text-center">Vào thi</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -52,20 +47,9 @@
                                         <td class="text-center"><?php echo $row['TGBatDau']; ?></td>
                                         <td class="text-center"><?php echo $row['TGKetThuc'] ; ?></td>
                                         <td class="text-center">
-                                        <a href="SuaBT.php?this_id=<?php echo $row['IDBaiThi']; ?>" class="btn btn-primary btn-sm" title="Sửa bài thi">
-                                            <i class="bi bi-pencil"></i>
+                                        <a href="Thi.php?this_id=<?php echo $row['IDBaiThi']; ?>" class="btn btn-info btn-sm" title="Thi bài thi">
+                                            <i class="bi bi-file-earmark-play"></i>
                                         </a>
-                                        <a href="XoaBT.php?this_id=<?php echo $row['IDBaiThi']; ?>" class="btn btn-danger btn-sm" title="Xóa bài thi">
-                                            <i class="bi bi-trash"></i>
-                                            
-                                        </a>
-                                        <a href="CauHoi_BaiThi.php?this_id=<?php echo $row['IDBaiThi']; ?>&socau=<?php echo $row['SoCau']; ?>" class="btn btn-warning btn-sm" title="Danh sách câu hỏi">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </a>
-                                        <a href="ThemLopThi.php?this_id=<?php echo $row['IDBaiThi']; ?>" class="btn btn-success btn-sm" title="Danh sách sinh viên">
-                                            <i class="bi bi-file-earmark-text"></i>
-                                        </a>
-                                        
                                         </td>
                                     </tr>
                                     <?php

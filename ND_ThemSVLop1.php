@@ -3,6 +3,7 @@
     include "data.php";
     
     $this_id = $_GET['this_id'];
+    $idmonhoc = $_GET['idmonhoc'];
     $sql1 = "select * from LopHoc where IDLop=".$this_id;
     $result = mysqli_query($conn, $sql1);
     $row = mysqli_fetch_assoc($result);
@@ -16,7 +17,7 @@
        /* echo "<script type='text/javascript'>
         window.location.href = 'ND_DS_SV_Lop1.php?this_id=$this_id';
         </script>";*/
-        header("Location: ND_DS_SV_Lop.php?this_id=$this_id");
+        header("Location: ND_DS_SV_Lop1.php?this_id=$this_id&idmonhoc=$idmonhoc");
     }
     include "ND_dau1.php";
 ?>

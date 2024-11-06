@@ -11,15 +11,24 @@
         if (empty($tenmenu)) {
           $errors['tenmenu'] = "Tên menu không được để trống";
         }
-        if (empty($mucdo)) {
+        if ($mucdo == "") {
             $errors['mucdo'] = "Mức độ không được để trống";
         }
         if ($idcha == "") {  
           $errors['idcha'] = "ID cha không được để trống";
-      }
-        if (empty($thutu)) {
+        }
+        if ($thutu == "") {
           $errors['thutu'] = "Thứ tự không được để trống";
-      }
+        }
+        if (!empty($mucdo) && !is_numeric($mucdo)) {
+          $errors['mucdo'] = "Mức độ phải là một số.";
+        }
+        if (!empty($idcha) && !is_numeric($idcha)) {
+            $errors['idcha'] = "ID cha phải là một số.";
+        }
+        if (!empty($thutu) && !is_numeric($thutu)) {
+            $errors['thutu'] = "Thứ tự phải là một số.";
+        }
         if (empty($errors)) {
           $sql = "insert into Menu(TenMenu, MucDo, IdCha, ThuTu, MaQuyen, ActionName) values('$tenmenu', '$mucdo', '$idcha', '$thutu', '$maquyen', '$action')";
           mysqli_query($conn, $sql);

@@ -67,11 +67,11 @@
 							<tbody>
                                 <?php $sql = 'SELECT lh.*, MH_GV.IDMH_GV, nd.HoTen, mh.TenMonHoc  FROM LopHoc lh join MH_GV on MH_GV.IDMH_GV = lh.IDMH_GV
                                 join NguoiDung nd on nd.IDNDung = MH_GV.IDNDung
-                                join MonHoc mh on mh.IDMonHoc = MH_GV.IDMonHoc
-                                order by lh.TenLop';
+                                join MonHoc mh on mh.IDMonHoc = MH_GV.IDMonHoc ';
                                  if (!empty($hocphan)) {
                                     $sql .= " WHERE mh.IDMonHoc = '$hocphan'";
                                 }
+                                $sql .= " order by lh.TenLop";
                                 $result = mysqli_query($conn, $sql);
                                 if (mysqli_num_rows($result) > 0) {
                                     while ($row = mysqli_fetch_assoc($result)) {

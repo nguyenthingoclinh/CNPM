@@ -12,8 +12,11 @@
                 $hoten = $row['HoTen'];
                 $anh = $row['anh'];
                 include 'classND.php'; 
+                include 'classAd.php'; 
                 $user = new User(); 
                 $user->dangNhap($id, $hoten, $vaiTro, $anh);
+                $ad = new Ad();
+                $ad->dangNhap($id, $hoten, $vaiTro, $anh);
                 if ($vaitro == "admin")
                     header('Location: admin.php');
                 else{

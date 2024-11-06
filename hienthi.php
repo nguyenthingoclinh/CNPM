@@ -30,11 +30,11 @@
                                 <img src="NguoiDung/img/service-1.jpg" class="img-fluid rounded-top w-100" alt="Image">
                             </div>
                             <div class="rounded-bottom p-4">
-                                <a href="ND_VaoThi.php?this_id=<?php echo $row['IDBaiThi'] ?>" class="h4 d-inline-block mb-4"> <?php echo $row['TenBaiThi'] ?></a>
+                                <a href="ND_VaoThigv.php?this_id=<?php echo $row['IDBaiThi'] ?>" class="h4 d-inline-block mb-4"> <?php echo $row['TenBaiThi'] ?></a>
                                 <p class="mb-4">
                                     Hãy sẵn sàng cho bài thi của bạn! Mỗi câu hỏi được thiết kế để kiểm tra kiến thức và khả năng của mình trong các lĩnh vực liên quan. Đảm bảo rằng bạn đã chuẩn bị kỹ càng trước khi bắt đầu.
                                 </p>
-                                <a class="btn btn-primary rounded-pill py-2 px-4" href="ND_VaoThi.php?this_id=<?php echo $row['IDBaiThi'] ?>">Xem thêm</a>
+                                <a class="btn btn-primary rounded-pill py-2 px-4" href="ND_VaoThigv.php?this_id=<?php echo $row['IDBaiThi'] ?>">Xem thêm</a>
                             </div>
                         </div>
                     </div>

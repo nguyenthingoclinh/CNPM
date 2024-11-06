@@ -14,11 +14,7 @@
     <i class="bi bi-file-earmark-text me-1"></i>Thêm Môn học
   </a>
 </p>
-<p>
-  <a href="ThemMHCT.php" class="btn btn-success">
-    <i class="bi bi-file-earmark-text me-1"></i>Thêm Giảng viên
-  </a>
-</p>
+
 	<section class="section dashboard">
 		<div class="row">
 			<div class="col-12">
@@ -58,6 +54,9 @@
                           </a>
                           <a href="XoaMH.php?this_id=<?php echo $row['IDMonHoc']; ?>" class="btn btn-danger btn-sm" title="Xóa menu">
                             <i class="bi bi-trash"></i>
+                          </a>
+                          <a href="ThemMHCT.php?this_id=<?php echo $row['IDMonHoc']; ?>" class="btn btn-success btn-sm" title="Xóa menu">
+                            <i class="bi bi-person-circle"></i>
                           </a>
                         </td>
                     </tr>

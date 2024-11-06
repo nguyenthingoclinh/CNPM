@@ -1,8 +1,9 @@
 <?php
 include 'data.php'; 
-
+$str = "";
 $this_id = $_GET['this_id'];
-
+$idmonhoc = $_GET['idmonhoc'];
+$idlop = $_GET['idlop'];
 $sql = "SELECT * FROM BaiThi WHERE IDBaiThi = '$this_id'";
 $thi = mysqli_query($conn, $sql);
 if (mysqli_num_rows($thi) > 0) {
@@ -12,34 +13,30 @@ if (mysqli_num_rows($thi) > 0) {
     exit();
 }
 
-// Thiết lập múi giờ
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 
-// Lấy thời gian bắt đầu và kết thúc
 $thoi_gian_bat_dau = strtotime($ttthi['TGBatDau']);
 $thoi_gian_ket_thuc = strtotime($ttthi['TGKetThuc']);
 
-// Lấy thời gian hiện tại
 $thoi_gian_hien_tai = strtotime(date('Y-m-d H:i:s'));
 
-// Kiểm tra thời gian
 if ($thoi_gian_hien_tai < $thoi_gian_bat_dau) {
-    echo "Chưa đến thời gian bắt đầu bài thi!";
-    exit();
+    //echo "Chưa đến thời gian bắt đầu bài thi!";
+    $str = "Chưa đến thời gian bắt đầu bài thi!";;
+    //exit();
 }
 
 if ($thoi_gian_hien_tai > $thoi_gian_ket_thuc) {
-    echo "Thời gian làm bài đã hết!";
-    exit();
+   // echo "Thời gian làm bài đã hết!";
+   // exit();
+   $str = "Thời gian làm bài đã hết!";
 }
 
-// Tính thời gian còn lại
 $thoi_gian_con_lai = $thoi_gian_ket_thuc - $thoi_gian_hien_tai;
 
 $phut_con_lai = floor($thoi_gian_con_lai / 60);
 $giay_con_lai = $thoi_gian_con_lai % 60;
 
-// Truy vấn câu hỏi
 $sql_cauhoi = "SELECT * FROM CH_BT 
         JOIN CauHoi ON CH_BT.IDCauHoi = CauHoi.IDCauHoi 
         WHERE CH_BT.IDBaiThi = '$this_id'";
@@ -50,12 +47,12 @@ if (mysqli_num_rows($result_cauhoi) > 0) {
         $cauhoi[] = $row;
     }
 } else {
-    echo "Không có câu hỏi trong bài thi này!";
-    exit();
+    //echo "Không có câu hỏi trong bài thi này!";
+    //exit();
+    $str = "Không có câu hỏi trong bài thi này!";
 }
 
-// Xử lý nộp bài
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if (isset($_POST['btn'])) {
     $diem = 0;
     $tong_so_cau_hoi = count($cauhoi);
     $so_cau_tra_loi = 0;
@@ -72,20 +69,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    // Chuyển hướng sang trang XemDiem.php với tham số điểm và tổng số câu hỏi
     header("Location: XemDiem.php?diem=$diem&tong=$tong_so_cau_hoi");
     exit();
+}
+if (isset($_POST['btnq'])) {
+    header("Location: ND_CTLH.php?this_id=$idlop&idmonhoc=$idmonhoc");
 }
 
 include "ND_dau.php";
 ?>
 
 <script type="text/javascript">
-// Nhận thời gian còn lại từ PHP
 var phutConLai = <?php echo $phut_con_lai; ?>;
 var giayConLai = <?php echo $giay_con_lai; ?>;
 
-// Hàm cập nhật đếm ngược
 function startTimer(minutes, seconds) {
     var totalSeconds = minutes * 60 + seconds;
     var interval = setInterval(function () {
@@ -99,23 +96,40 @@ function startTimer(minutes, seconds) {
 
         if (--totalSeconds <= 0) {
             clearInterval(interval);
-            // Hết giờ, tự động nộp bài
-            document.forms[0].submit(); // Gọi hàm nộp bài
+            
+            document.forms[0].submit(); 
         }
     }, 1000);
 }
 
-// Khi trang đã load, bắt đầu bộ đếm
+
 window.onload = function () {
     startTimer(phutConLai, giayConLai);
 };
 </script>
 
 <div class="container py-5">
+<form method="POST" action="">
+<?php
+        if(!empty($str)){
+            ?>
+            <div style="display: flex; justify-content: center; align-items: flex-start; height: 50vh; padding-top: 20px;">
+            <div style="text-align: center;">
+                <h5><?php echo $str; ?></h5>
+                <button type="submit" class="btn btn-primary" name="btnq" style="margin-top: 10px;">Quay lại</button>
+            </div>
+            </div>
+            
+            <?php
+        }
+        else{
+
+        
+    ?>
     <h2><?php echo $ttthi['TenBaiThi']; ?></h2>
     <p>Thời gian còn lại: <span id="thoi_gian"></span></p>
     
-    <form method="POST" action="">
+    
         <?php $dem = 0; foreach ($cauhoi as $cau): $dem++; ?>
             <div>
                 <h5><?php echo "Câu hỏi " . $dem . ": " . $cau['TenDe']; ?></h5>
@@ -129,8 +143,11 @@ window.onload = function () {
             <br>
         <?php endforeach; ?>
         
-        <button type="submit" class="btn btn-primary" name="btnq">Nộp bài</button>
+        <button type="submit" class="btn btn-primary" name="btn">Nộp bài</button>
     </form>
+    <?php
+        }
+    ?>
 </div>
 
 <?php include "ND_cuoi.php"; ?>

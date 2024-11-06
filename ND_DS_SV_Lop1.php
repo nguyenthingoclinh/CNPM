@@ -1,16 +1,17 @@
 <?php
   include "data.php";
   $this_id = $_GET['this_id'];
+  $idmonhoc = $_GET['idmonhoc'];
   include "ND_dau.php";
 ?>
 
     <div class="container my-5">
         <h2 class="text-center mb-4">Danh sách sinh viên</h2>
         <div class="text-start mb-3 d-flex justify-content-start">
-            <a href="ND_ThemSVLop.php?this_id=<?php echo $this_id; ?>" class="btn btn-success me-2">
+            <a href="ND_ThemSVLop1.php?this_id=<?php echo $this_id; ?>&idmonhoc=<?php echo $idmonhoc ?>" class="btn btn-success me-2">
                 <i class="bi bi-file-earmark-text me-1"></i>Thêm sinh viên
             </a>
-            <a href="ND_CTLH.php?this_id=<?php echo $this_id ?>" class="btn btn-warning">
+            <a href="ND_CTLH.php?this_id=<?php echo $this_id ?>&idmonhoc=<?php echo $idmonhoc ?>" class="btn btn-warning">
                 <i class="bi bi-arrow-left-circle"></i> Quay lại
             </a>
         </div>
@@ -44,7 +45,7 @@
                             <td class="text-center"><?php echo $row['HoTen']; ?></td>
                             <td class="text-center"><?php echo $row['NgaySinh']; ?></td>
                             <td class="text-center">
-                                <a href="ND_XoaSVLop.php?idnd=<?php echo $row['IDNDung']; ?>&this_id=<?php echo $this_id; ?>" class="btn btn-danger btn-sm" title="Xóa sinh viên">
+                                <a href="ND_XoaSVLop1.php?idnd=<?php echo $row['IDNDung']; ?>&this_id=<?php echo $this_id; ?>&idmonhoc=<?php echo $idmonhoc ?>" class="btn btn-danger btn-sm" title="Xóa sinh viên">
                                     <i class="bi bi-trash"></i>
                                 </a>
                             </td>

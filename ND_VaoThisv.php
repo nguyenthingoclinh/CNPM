@@ -1,9 +1,9 @@
 <?php
   include "data.php";
   $this_id = $_GET['this_id'];
- 
+  $idmonhoc = $_GET['idmonhoc'];
   if(isset($_POST['btn'])){
-    header("Location: ND_Thi1.php?this_id=$this_id");
+    header("Location: ND_Thisv.php?this_id=$this_id&idmonhoc=$idmonhoc");
   }
   include "ND_dauSV.php";
 ?>

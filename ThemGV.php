@@ -26,7 +26,7 @@
         if (empty($matkhau)) {
           $errors['matkhau'] = "Mật khẩu không được để trống";
         }
-        if (empty($cancuoc)) {
+        if ($cancuoc == "") {
           $errors['cancuoc'] = "Căn cước không được để trống";
         }
         if (empty($ngaysinh)) {
@@ -34,6 +34,9 @@
         }
         if (empty($diachi)) {
           $errors['diachi'] = "Địa chỉ không được để trống";
+        }
+        if (!empty($cancuoc) && !is_numeric($cancuoc)) {
+          $errors['cancuoc'] = "Căn cước phải là một số.";
         }
         if (empty($errors)) {
           $sql = "insert into NguoiDung(HoTen, MatKhau, VaiTro, CCCD, NgaySinh, DiaChi, anh) values('$hoten', '$matkhau', 'Giáo Viên', '$cancuoc', '$ngaysinh', '$diachi', '$anh')";
@@ -78,7 +81,7 @@
                 </div>
                 <div class="col-12">
                   <label for="ngaysinh" class="form-label">Ngày sinh</label>
-                  <input type="text" class="form-control" name="ngaysinh" value="<?php echo isset($ngaysinh) ? $ngaysinh : ''; ?>">
+                  <input type="date" class="form-control" name="ngaysinh" value="<?php echo isset($ngaysinh) ? $ngaysinh : ''; ?>">
                   <?php if (isset($errors['ngaysinh'])) echo "<span style='color:red;'>{$errors['ngaysinh']}</span>"; ?>
                 </div>
                 <div class="col-12">

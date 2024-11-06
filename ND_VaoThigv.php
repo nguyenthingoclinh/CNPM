@@ -1,13 +1,8 @@
 <?php
   include "data.php";
   $this_id = $_GET['this_id'];
-  $idlop = $_GET['idlop'];
-  $idmonhoc = $_GET['idmonhoc'];
   if(isset($_POST['btn'])){
-    header("Location: ND_Thi.php?this_id=$this_id&idmonhoc=$idmonhoc&idlop=$idlop");
-  }
-  if(isset($_POST['btndiem'])){
-    header("Location: ND_DSDiem.php?idbaithi=$this_id&idlop=$idlop");
+    header("Location: ND_Thigv.php?this_id=$this_id");
   }
   include "ND_dau.php";
 ?>
@@ -24,7 +19,7 @@
         <p>Thời gian bắt đầu: <?php echo $row['TGBatDau'] ?></p>
         <p>Thời gian kết thúc: <?php echo $row['TGKetThuc'] ?></p>
       </div>
-        <button type="submit" class="btn btn-warning" name="btndiem" style="padding: 15px 30px;">Xem danh sách điểm</button>
+   
         <button type="submit" class="btn btn-primary" name="btn" style="padding: 15px 30px;">Vào thi</button>
     </form>
 </div>

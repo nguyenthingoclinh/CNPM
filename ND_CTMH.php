@@ -30,7 +30,7 @@
             <div class="card h-100 text-center">
                
                 <div class="card-icon" style="font-size: 50px; color: #ff8c00; margin: 20px auto;">
-                    <a href="ND_CTLH.php?this_id=<?php echo $row['IDLop']; ?>" >
+                    <a href="ND_CTLH.php?this_id=<?php echo $row['IDLop']; ?>&idmonhoc=<?php echo $this_id; ?>" >
                     <i class="<?php echo $icon_class; ?>"></i>
                     </a>
                 </div>

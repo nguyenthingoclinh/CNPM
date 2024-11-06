@@ -9,7 +9,7 @@
       while ($row = mysqli_fetch_assoc($result)) {
         
         $cha = $row['IDMenuAd'];
-        $sql1 = "SELECT * FROM AdminMenu where IdCha = {$cha}";
+        $sql1 = "SELECT * FROM AdminMenu where IdCha = {$cha} order by ThuTu";
         $result1 = mysqli_query($conn, $sql1);
         if (mysqli_num_rows($result1) == 0){ ?>
          <a class="nav-link collapsed" href="#">

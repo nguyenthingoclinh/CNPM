@@ -4,6 +4,7 @@
     $sql1 = "select * from CauHoi where IDCauHoi =".$this_id;
     $result = mysqli_query($conn, $sql1);
     $row = mysqli_fetch_assoc($result);
+    $errors = [];
     if(isset($_POST['btn'])){
         $tende = $_POST['tende'];
         $monhoc = $_POST['monhoc'];
@@ -12,10 +13,34 @@
         $DA3 = $_POST['DA3'];
         $DA4 = $_POST['DA4'];
         $DADung = $_POST['DADung'];
-        $sql = "update CauHoi set IDMH_GV = '$monhoc', TenDe = '$tende', DA1 = '$DA1', DA2 = '$DA2', DA3 = '$DA3', DA4 = '$DA4', DADung = '$DADung'
-        where IDCauHoi=".$this_id;
-        mysqli_query($conn, $sql);
-        header('Location: DS_CauHoi.php');
+        if (empty($tende)) {
+          $errors['tende'] = "Tên đề không được để trống";
+        }
+        if (empty($monhoc)) {
+            $errors['monhoc'] = "Môn học không được để trống";
+        }
+        if ($DA1 == "") {
+          $errors['DA1'] = "Đáp án A không được để trống";
+        }
+        if ($DA2 == "") {
+          $errors['DA2'] = "Đáp án B không được để trống";
+        }
+        if ($DA3 == "") {
+          $errors['DA3'] = "Đáp án C không được để trống";
+        }
+        if ($DA4 == "") {
+          $errors['DA4'] = "Đáp án D không được để trống";
+        }
+        if (empty($DADung)) {
+          $errors['DADung'] = "Đáp án Đúng không được để trống";
+        }
+        if (empty($errors)) {
+          $sql = "update CauHoi set IDMH_GV = '$monhoc', TenDe = '$tende', DA1 = '$DA1', DA2 = '$DA2', DA3 = '$DA3', DA4 = '$DA4', DADung = '$DADung'
+          where IDCauHoi=".$this_id;
+          mysqli_query($conn, $sql);
+          header('Location: DS_CauHoi.php');
+        }
+        
     }
     if(isset($_POST['btnq'])){
         header('Location: DS_CauHoi.php');
@@ -37,6 +62,7 @@
                 <div class="col-12">
                   <label for="tende" class="form-label">Đề</label>
                   <input type="text" class="form-control" name="tende" value = "<?php echo $row['TenDe'];?>">
+                  <?php if (isset($errors['tende'])) echo "<span style='color:red;'>{$errors['tende']}</span>"; ?>
                 </div>
                 <div class="col-12">
                     <label for="monhoc" class="form-label">Môn học - Giảng viên</label>
@@ -57,22 +83,27 @@
                             }
                         ?>
                     </select>
+                    <?php if (isset($errors['monhoc'])) echo "<span style='color:red;'>{$errors['monhoc']}</span>"; ?>
                 </div>
                 <div class="col-12">
                   <label for="DA1" class="form-label">Đáp án A</label>
                   <input type="text" class="form-control" name="DA1" value = "<?php echo $row['DA1'];?>">
+                  <?php if (isset($errors['DA1'])) echo "<span style='color:red;'>{$errors['DA1']}</span>"; ?>
                 </div>
                 <div class="col-12">
                   <label for="DA2" class="form-label">Đáp án B</label>
                   <input type="text" class="form-control" name="DA2" value = "<?php echo $row['DA2'];?>">
+                  <?php if (isset($errors['DA2'])) echo "<span style='color:red;'>{$errors['DA2']}</span>"; ?>
                 </div>
                 <div class="col-12">
                   <label for="DA3" class="form-label">Đáp án C</label>
                   <input type="text" class="form-control" name="DA3" value = "<?php echo $row['DA3'];?>">
+                  <?php if (isset($errors['DA3'])) echo "<span style='color:red;'>{$errors['DA3']}</span>"; ?>
                 </div>
                 <div class="col-12">
                   <label for="DA4" class="form-label">Đáp án D</label>
                   <input type="text" class="form-control" name="DA4" value = "<?php echo $row['DA4'];?>">
+                  <?php if (isset($errors['DA4'])) echo "<span style='color:red;'>{$errors['DA4']}</span>"; ?>
                 </div>
                 <div class="col-12">
                     <label for="DADung" class="form-label">Đáp án Đúng</label>

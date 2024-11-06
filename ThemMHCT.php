@@ -1,5 +1,9 @@
 <?php
     include "data.php";
+    $this_id = $_GET['this_id'];
+    $sql1 = "select * from MonHoc  where IDMonHoc=".$this_id;
+    $result = mysqli_query($conn, $sql1);
+    $row = mysqli_fetch_assoc($result);
     if(isset($_POST['btn'])){
         $monhoc = $_POST['monhoc'];
         $lophoc = $_POST['lophoc'];
@@ -26,22 +30,9 @@
             <div class="card-body">
               <h5 class="card-title">Thêm chi tiết môn học</h5>
               <form class="row g-3" method = "POST">
-                <div class="col-12">
-                    <label for="monhoc" class="form-label">Môn học</label>
-                    <select class="form-control" name="monhoc">
-                        <option value="">-- Chọn môn học --</option>
-                        <?php
-                            $sql1 = 'SELECT * FROM MonHoc';
-                            $result1 = mysqli_query($conn, $sql1);
-                            if (mysqli_num_rows($result1) > 0) {
-                                while ($row1 = mysqli_fetch_assoc($result1)) {
-                                    echo "<option value='{$row1['IDMonHoc']}'>{$row1['TenMonHoc']} - ID: {$row1['IDMonHoc']}</option>";
-                                }
-                            } else {
-                                echo "<option value=''>Không có môn học</option>";
-                            }
-                        ?>
-                    </select>
+              <div class="col-12">
+                  <label for="monhoc" class="form-label">Môn học</label>
+                  <input type="text" class="form-control" name="monhoc" value="<?php echo $row['TenMonHoc']; ?>">
                 </div>
                 <div class="col-12">
                     <label for="nguoidung" class="form-label">Người dùng</label>

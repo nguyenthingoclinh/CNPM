@@ -9,8 +9,11 @@
         if (empty($tenmonhoc)) {
           $errors['tenmonhoc'] = "Tên môn học không được để trống";
         }
-        if (empty($sotc)) {
+        if ($sotc == "") {
           $errors['sotc'] = "Số tín chỉ không được để trống";
+        }
+        if (!empty($sotc) && !is_numeric($sotc)) {
+          $errors['sotc'] = "Số tín chỉ phải là một số.";
         }
         if (empty($errors)) {
           $sql = "insert into MonHoc(TenMonHoc, SoTC, MoTa) values('$tenmonhoc', '$sotc', '$mota')";

@@ -22,6 +22,12 @@
         if (empty($namhoc)) {
           $errors['namhoc'] = "Năm học không được để trống";
         }
+        if (!empty($soluong) && !is_numeric($soluong)) {
+          $errors['soluong'] = "Số lượng phải là một số.";
+        }
+        if (!empty($ky) && !is_numeric($ky)) {
+          $errors['ky'] = "Kỳ phải là một số.";
+        }
         if (empty($errors)) {
           $sql = "insert into LopHoc(TenLop, IDMH_GV, SoLuong, NamHoc, Ky) values('$tenlophoc', '$monhoc', '$soluong', '$namhoc', '$ky')";
           mysqli_query($conn, $sql);
@@ -48,12 +54,12 @@
               <form class="row g-3" method = "POST">
                 <div class="col-12">
                   <label for="tenlophoc" class="form-label">Tên lớp học</label>
-                  <input type="text" class="form-control" name="tenlophoc">
+                  <input type="text" class="form-control" name="tenlophoc" value="<?php echo isset($tenlophoc) ? $tenlophoc : ''; ?>">
                   <?php if (isset($errors['tenlophoc'])) echo "<span style='color:red;'>{$errors['tenlophoc']}</span>"; ?>
                 </div>
                 <div class="col-12">
                     <label for="monhoc" class="form-label">Môn học - Giảng viên</label>
-                    <select class="form-control" name="monhoc">
+                    <select class="form-control" name="monhoc" >
                         <option value="">-- Chọn môn học - giảng viên --</option>
                         <?php
                             $sql1 = 'SELECT * FROM MH_GV join NguoiDung nd on nd.IDNDung = MH_GV.IDNDung
@@ -62,7 +68,9 @@
                             $result1 = mysqli_query($conn, $sql1);
                             if (mysqli_num_rows($result1) > 0) {
                                 while ($row1 = mysqli_fetch_assoc($result1)) {
-                                    echo "<option value='{$row1['IDMH_GV']}'>{$row1['TenMonHoc']} - ID: {$row1['HoTen']}</option>";
+                                  $selected = ($monhoc == $row1['IDMH_GV']) ? 'selected' : ''; 
+                                  echo "<option value='{$row1['IDMH_GV']}' $selected>{$row1['TenMonHoc']} - ID: {$row1['HoTen']}</option>";
+                                  
                                 }
                             } else {
                                 echo "<option value=''>Không có</option>";
@@ -73,17 +81,17 @@
                 </div>
                 <div class="col-12">
                   <label for="soluong" class="form-label">Số lượng</label>
-                  <input type="text" class="form-control" name="soluong">
+                  <input type="text" class="form-control" name="soluong" value="<?php echo isset($soluong) ? $soluong : ''; ?>">
                   <?php if (isset($errors['soluong'])) echo "<span style='color:red;'>{$errors['soluong']}</span>"; ?>
                 </div>
                 <div class="col-12">
                   <label for="namhoc" class="form-label">Năm học</label>
-                  <input type="text" class="form-control" name="namhoc">
+                  <input type="text" class="form-control" name="namhoc" value="<?php echo isset($namhoc) ? $namhoc : ''; ?>">
                   <?php if (isset($errors['namhoc'])) echo "<span style='color:red;'>{$errors['namhoc']}</span>"; ?>
                 </div>
                 <div class="col-12">
                   <label for="ky" class="form-label">Kỳ</label>
-                  <input type="text" class="form-control" name="ky">
+                  <input type="text" class="form-control" name="ky" value="<?php echo isset($ky) ? $ky : ''; ?>">
                   <?php if (isset($errors['ky'])) echo "<span style='color:red;'>{$errors['ky']}</span>"; ?>
                 </div>
                 <div class="text-center">

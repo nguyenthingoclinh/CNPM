@@ -21,12 +21,11 @@
                 </tr>
             </thead>
             <tbody>
-                
                 <?php $sql = "Select * from KetQua kq join BaiThi bt on bt.IDBaiThi = kq.IDBaiThi 
                 join MH_GV mhgv on mhgv.IDMH_GV = bt.IDMH_GV
                 join MonHoc mh on mh.IDMonHoc = mhgv.IDMonHoc  
-                 
-                where kq.IDNDung = '$id'";
+                where kq.IDNDung = '$id'
+                order by bt.TenBaiThi";
 
                 $result = mysqli_query($conn, $sql);
                 if (mysqli_num_rows($result) > 0) {

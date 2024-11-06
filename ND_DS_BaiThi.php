@@ -64,7 +64,7 @@
                         <a href="ND_DS_SVThi.php?this_id=<?php echo $row['IDBaiThi']; ?>" class="btn btn-info btn-sm" title="Danh sách sinh viên">
                             <i class="bi bi-list"></i>
                         </a>
-                        <a href="ND_VaoThi.php?this_id=<?php echo $row['IDBaiThi']; ?>" class="btn btn-info btn-sm" title="Danh sách sinh viên">
+                        <a href="ND_VaoThigv.php?this_id=<?php echo $row['IDBaiThi']; ?>" class="btn btn-info btn-sm" title="Danh sách sinh viên">
                             <i class="bi bi-clipboard-check"></i>
                         </a>
                         </td>

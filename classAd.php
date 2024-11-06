@@ -1,11 +1,11 @@
 <?php
-    class User {
+    class Ad {
         
         public function dangNhap($id, $tenNguoiDung, $vaiTro, $anh) {
             
-            setcookie('IDNguoiDung', $id, time() + 3600); // Cookie tồn tại trong 1 giờ
-            setcookie('tenNguoiDung', $tenNguoiDung, time() + 3600); // Cookie tồn tại trong 1 giờ
-            setcookie('vaiTro', $vaiTro, time() + 3600); // Cookie tồn tại trong 1 giờ
+            setcookie('IDNguoiDung', $id, time() + 3600); 
+            setcookie('tenNguoiDung', $tenNguoiDung, time() + 3600); 
+            setcookie('vaiTro', $vaiTro, time() + 3600); 
             setcookie('anh', $anh, time() + 3600); 
         }
     
@@ -47,6 +47,10 @@
             setcookie('tenNguoiDung', '', time() - 3600);
             setcookie('vaiTro', '', time() - 3600);
             setcookie('anh', '', time() - 3600);
+        }
+
+        public function kiemTraCookie() {
+            return isset($_COOKIE['IDNguoiDung'], $_COOKIE['tenNguoiDung'], $_COOKIE['vaiTro'], $_COOKIE['anh']);
         }
     }
     

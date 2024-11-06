@@ -4,6 +4,7 @@
     $sql1 = "select * from NguoiDung where IDNDung=".$this_id;
     $result = mysqli_query($conn, $sql1);
     $row = mysqli_fetch_assoc($result);
+    $errors = [];
     if(isset($_POST['btn'])){
         $hoten = $_POST['hoten'];
         $matkhau = $_POST['matkhau'];
@@ -23,10 +24,27 @@
       } else {
           $anh = $row['anh'];
       }
-  
+      if (empty($hoten)) {
+        $errors['hoten'] = "Họ tên không được để trống";
+      }
+      if (empty($matkhau)) {
+        $errors['matkhau'] = "Mật khẩu không được để trống";
+      }
+      if (empty($cancuoc)) {
+        $errors['cancuoc'] = "Căn cước không được để trống";
+      }
+      if (empty($ngaysinh)) {
+        $errors['ngaysinh'] = "Ngày sinh không được để trống";
+      }
+      if (empty($diachi)) {
+        $errors['diachi'] = "Địa chỉ không được để trống";
+      }
+      if (empty($errors)) {
         $sql = "update NguoiDung set HoTen = '$hoten', MatKhau = '$matkhau', CCCD = '$cancuoc', NgaySinh = '$ngaysinh', DiaChi = '$diachi', anh = '$anh' where IDNDung=".$this_id;
         mysqli_query($conn, $sql);
         header('Location: DS_GiangVien.php');
+      }
+        
     }
     if(isset($_POST['btnq'])){
         header('Location: DS_GiangVien.php');
@@ -49,23 +67,28 @@
                 <div class="col-12">
                   <label for="hoten" class="form-label">Họ tên</label>
                   <input type="text" class="form-control" name="hoten" value = "<?php echo $row['HoTen'];?>">
+                  <?php if (isset($errors['hoten'])) echo "<span style='color:red;'>{$errors['hoten']}</span>"; ?>
                 </div>
                 <div class="col-12">
                   <label for="matkhau" class="form-label">Mật khẩu</label>
                   <input type="text" class="form-control" name="matkhau" value = "<?php echo $row['MatKhau'];?>">
+                  <?php if (isset($errors['matkhau'])) echo "<span style='color:red;'>{$errors['matkhau']}</span>"; ?>
                 </div>
               
                 <div class="col-12">
                   <label for="cancuoc" class="form-label">Căn cước</label>
                   <input type="text" class="form-control" name="cancuoc" value = "<?php echo $row['CCCD'];?>">
+                  <?php if (isset($errors['cancuoc'])) echo "<span style='color:red;'>{$errors['cancuoc']}</span>"; ?>
                 </div>
                 <div class="col-12">
                   <label for="ngaysinh" class="form-label">Ngày sinh</label>
-                  <input type="text" class="form-control" name="ngaysinh" value = "<?php echo $row['NgaySinh'];?>">
+                  <input type="date" class="form-control" name="ngaysinh" value = "<?php echo $row['NgaySinh'];?>">
+                  <?php if (isset($errors['ngaysinh'])) echo "<span style='color:red;'>{$errors['ngaysinh']}</span>"; ?>
                 </div>
                 <div class="col-12">
                   <label for="diachi" class="form-label">Địa chỉ</label>
                   <input type="text" class="form-control" name="diachi" value = "<?php echo $row['DiaChi'];?>">
+                  <?php if (isset($errors['diachi'])) echo "<span style='color:red;'>{$errors['diachi']}</span>"; ?>
                 </div>
 
                 <div class="form-group col-md-12">

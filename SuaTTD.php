@@ -4,6 +4,7 @@
     $sql1 = "select * from Menu where IDMenu=".$this_id;
     $result = mysqli_query($conn, $sql1);
     $row = mysqli_fetch_assoc($result);
+    $errors = [];
     if(isset($_POST['btn'])){
         $tenmenu = $_POST['tenmenu'];
         $mucdo = $_POST['mucdo'];
@@ -11,9 +12,24 @@
         $thutu = $_POST['thutu'];
         $maquyen = $_POST['maquyen'];
         $action = $_POST['actionn'];
-        $sql = "update Menu set TenMenu = '$tenmenu', MucDo = '$mucdo', IdCha = '$idcha', ThuTu = '$thutu', MaQuyen = '$maquyen', ActionName = '$action' where IDMenu=".$this_id;
-        mysqli_query($conn, $sql);
-        header('Location: DS_ThanhTD.php');
+        if (empty($tenmenu)) {
+          $errors['tenmenu'] = "Tên menu không được để trống";
+        }
+        if (empty($mucdo)) {
+            $errors['mucdo'] = "Mức độ không được để trống";
+        }
+        if (!is_numeric($idcha) || $idcha < 0) {  
+          $errors['idcha'] = "ID cha phải là số không âm";
+        }
+        if (empty($thutu)) {
+          $errors['thutu'] = "Thứ tự không được để trống";
+        }
+        if (empty($errors)) {
+          $sql = "update Menu set TenMenu = '$tenmenu', MucDo = '$mucdo', IdCha = '$idcha', ThuTu = '$thutu', MaQuyen = '$maquyen', ActionName = '$action' where IDMenu=".$this_id;
+          mysqli_query($conn, $sql);
+          header('Location: DS_ThanhTD.php');
+        }
+        
     }
     if(isset($_POST['btnq'])){
         header('Location: DS_ThanhTD.php');
@@ -36,18 +52,22 @@
                 <div class="col-12">
                   <label for="tenmenu" class="form-label">Tên menu</label>
                   <input type="text" class="form-control" name="tenmenu" value = "<?php echo $row['TenMenu'];?>">
+                  <?php if (isset($errors['tenmenu'])) echo "<span style='color:red;'>{$errors['tenmenu']}</span>"; ?>
                 </div>
                 <div class="col-12">
                   <label for="mucdo" class="form-label">Mức độ</label>
                   <input type="text" class="form-control" name="mucdo" value = "<?php echo $row['MucDo'];?>">
+                  <?php if (isset($errors['mucdo'])) echo "<span style='color:red;'>{$errors['mucdo']}</span>"; ?>
                 </div>
                 <div class="col-12">
                   <label for="idcha" class="form-label">Id cha</label>
                   <input type="text" class="form-control" name="idcha" value = "<?php echo $row['IdCha'];?>">
+                  <?php if (isset($errors['idcha'])) echo "<span style='color:red;'>{$errors['idcha']}</span>"; ?>
                 </div>
                 <div class="col-12">
                   <label for="thutu" class="form-label">Thứ tự</label>
                   <input type="text" class="form-control" name="thutu" value = "<?php echo $row['ThuTu'];?>">
+                  <?php if (isset($errors['thutu'])) echo "<span style='color:red;'>{$errors['thutu']}</span>"; ?>
                 </div>
                
                 <div class="col-12">

@@ -31,12 +31,12 @@
 								</tr>
 							</thead>
 							<tbody>
-                               <?php $sql = 'SELECT * FROM Menu';
+                               <?php $sql = 'SELECT * FROM Menu ';
                                 $result = mysqli_query($conn, $sql);
                                 if (mysqli_num_rows($result) > 0) {
                                   
                                     while ($row = mysqli_fetch_assoc($result)) {
-                                        //Hiển thị thông tin từng sinh viên với các đường dẫn (Sửa, Xóa)
+                                       
                                     ?>
                                     <tr>
                                         <th class="text-center" scope="row"><?php echo $row['IDMenu']; ?></th>

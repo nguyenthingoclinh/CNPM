@@ -47,7 +47,7 @@
                 </div>
                 <div class="col-12">
                   <label for="ngaysinh" class="form-label">Ngày sinh</label>
-                  <input type="text" class="form-control" name="ngaysinh" value = "<?php echo $row['NgaySinh'];?>" disabled>
+                  <input type="date" class="form-control" name="ngaysinh" value = "<?php echo $row['NgaySinh'];?>" disabled>
                 </div>
                 <div class="col-12">
                   <label for="diachi" class="form-label">Địa chỉ</label>

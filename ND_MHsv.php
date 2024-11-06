@@ -29,7 +29,7 @@
             <div class="card h-100 text-center">
                
                 <div class="card-icon" style="font-size: 50px; color: #ff8c00; margin: 20px auto;">
-                    <a href="ND_CTMH1.php?this_id=<?php echo $row['IDMonHoc']; ?>" >
+                    <a href="ND_CTMHsv.php?this_id=<?php echo $row['IDMonHoc']; ?>" >
                     <i class="<?php echo $icon_class; ?>"></i>
                     </a>
                 </div>

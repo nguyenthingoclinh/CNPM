@@ -4,15 +4,55 @@
   $user = new User(); 
   $id = $user->layIDNguoiDung();
   $this_id = $_GET['this_id'];
+  $idmonhoc = $_GET['idmonhoc'];
   include "ND_dau.php";
 ?>
 
-    <div class="container my-5">
-        
+    <div class="container my-5" style="margin-left: 150px;">
         <div class="text-start mb-3">
-          <a href="ND_DS_SV_Lop1.php?this_id=<?php echo $this_id ?>" class="btn btn-success">Danh sách sinh viên</a> 
+            <a href="ND_CTMH.php?this_id=<?php echo $idmonhoc ?>" class="btn btn-warning">
+            <i class="bi bi-arrow-left-circle"></i> Quay lại</a> 
+            <a href="ND_DS_SV_Lop1.php?this_id=<?php echo $this_id ?>&idmonhoc=<?php echo $idmonhoc ?>" class="btn btn-success">Danh sách sinh viên</a> 
         </div>
-        <h5 class="text-center mb-4">Danh sách bài thi</h5>
+        <br>
+        <h5 >Danh sách bài thi</h5><!-- class="text-center mb-3"-->
+        <div class="text-start mb-3 d-flex justify-content-start">
+        </div>
+        <?php $sql = "SELECT * FROM BaiThi bt join MH_GV mhgv on mhgv.IDMH_GV = bt.IDMH_GV
+                join NguoiDung nd on nd.IDNDung = mhgv.IDNDung
+                join MonHoc mh on mh.IDMonHoc = mhgv.IDMonHoc 
+                join BT_Lop btlop on btlop.IDBaiThi = bt.IDBaiThi 
+                join LopHoc lh on lh.IDLop = btlop.IDLop 
+                where nd.IDNDung = '$id' and lh.IDLop = '$this_id'";
+                $result = mysqli_query($conn, $sql);
+                if (mysqli_num_rows($result) > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                    ?>
+
+        <div style="display: flex; align-items: center;">
+            <i class="bi bi-check-square" style="font-size: 24px; color: orange; margin-right: 8px;"></i>
+            <div>
+                <h6 style="margin: 0;">
+                    <a href="ND_VaoThi.php?this_id=<?php echo $row['IDBaiThi']; ?>&idmonhoc=<?php echo $idmonhoc ?>&idlop=<?php echo $this_id ?>" style="text-decoration: none; color: inherit;" class="link-hover">
+                        <?php echo $row['TenBaiThi']; ?>
+                    </a>
+                </h6>
+                <p style="margin: 0; color: gray;">Là các dạng bài tập trắc nghiệm do máy tự động chấm điểm</p>
+                <br>
+            </div>
+        </div>
+
+        <?php
+                    }
+                }
+        ?>
+    <style>
+        .link-hover:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+        <!--<h5 class="text-center mb-4">Danh sách bài thi</h5>
         <div class="text-start mb-3 d-flex justify-content-start">
         </div>
         <table class="table table-bordered table-hover">
@@ -60,7 +100,7 @@
                 }
                 ?>            
             </tbody>
-        </table>
+        </table>-->
     </div>
     
 <?php

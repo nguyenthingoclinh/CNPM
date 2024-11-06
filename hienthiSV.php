@@ -35,7 +35,7 @@
                                 <p class="mb-4">
                                     Hãy sẵn sàng cho bài thi của bạn! Mỗi câu hỏi được thiết kế để kiểm tra kiến thức và khả năng của mình trong các lĩnh vực liên quan. Đảm bảo rằng bạn đã chuẩn bị kỹ càng trước khi bắt đầu.
                                 </p>
-                                <a class="btn btn-primary rounded-pill py-2 px-4" href="ND_VaoThi1.php?this_id=<?php echo $row['IDBaiThi'] ?>">Xem thêm</a>
+                                <a class="btn btn-primary rounded-pill py-2 px-4" href="ND_VaoThisv1.php?this_id=<?php echo $row['IDBaiThi'] ?>">Xem thêm</a>
                             </div>
                         </div>
                     </div>
